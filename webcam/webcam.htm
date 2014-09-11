@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Webcam</title>
+  
+
+
+
+<script type='text/javascript'>//<![CDATA[ 
+var loadingImage = new Image();
+loadingImage.src = "loading.gif";
+
+window.onload=function(){
+	var imgHolder = document.getElementById("imgHolder"),
+    nextBut = document.getElementById("butNext"), loadingHolder = document.getElementById("loadingHolder"), autoUpdate = document.getElementById("autoUpdate");
+
+nextBut.onclick = function(){
+		loadingHolder.appendChild(loadingImage);
+
+    var curImg = new Image();
+    curImg.src = "http://www.wrexham.gov.uk/webcam/cam2.jpg" + new Date().getTime();
+    curImg.onload = function(){
+					loadingHolder.removeChild(loadingHolder.firstChild);
+					loadingHolder.setAttribute("style","height:32px");
+					imgHolder.insertBefore(this, imgHolder.firstChild);
+					if(autoUpdate.checked)
+						nextBut.onclick();
+    }
+
+}
+nextBut.onclick();
+
+autoUpdate.onclick = nextBut.onclick;
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+<div id="loadingHolder"></div>
+<input type="button" value="Refresh" id="butNext"/> Autoupdate<input type="checkbox" id="autoUpdate"/>
+  <div id="imgHolder"></div>
+  
+</body>
+
+
+</html>
+
+
+
