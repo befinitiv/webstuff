@@ -7,7 +7,10 @@
 
 
 
-<script type='text/javascript'>//<![CDATA[ 
+<script type='text/javascript'>//<![CDATA[
+var UPDATE_PERIOD = 1000; //in ms
+var WEBCAM_URL = "http://www.wrexham.gov.uk/webcam/cam2.jpg"; 
+
 var loadingImage = new Image();
 loadingImage.src = "loading.gif";
 
@@ -19,13 +22,13 @@ nextBut.onclick = function(){
 		loadingHolder.appendChild(loadingImage);
 
     var curImg = new Image();
-    curImg.src = "http://www.wrexham.gov.uk/webcam/cam2.jpg" + new Date().getTime();
+    curImg.src = WEBCAM_URL + "#" + new Date().getTime();
     curImg.onload = function(){
 					loadingHolder.removeChild(loadingHolder.firstChild);
 					loadingHolder.setAttribute("style","height:32px");
 					imgHolder.insertBefore(this, imgHolder.firstChild);
 					if(autoUpdate.checked)
-						nextBut.onclick();
+						setTimeout(nextBut.onclick, UPDATE_PERIOD);
     }
 
 }
